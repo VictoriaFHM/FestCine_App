@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FestCine - Sistema de Gestión</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">🎬</div>
+            <h1>FestCine</h1>
+            <p>Festival de Cine Independiente</p>
+        </div>
+
+        <nav>
+            <button class="nav-btn active" onclick="mostrarModulo('taquilla', this)">
+                🎟️ Taquilla
+            </button>
+            <button class="nav-btn" onclick="mostrarModulo('agenda', this)">
+                🗓️ Agenda
+            </button>
+            <button class="nav-btn" onclick="mostrarModulo('datos', this)">
+                📊 Datos
+            </button>
+        </nav>
+
+        <div class="status-box">
+            <span class="status-dot"></span>
+            <p>SQL Server conectado</p>
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <div>
+                <h2>Sistema Cliente-Servidor</h2>
+                <p>Frontend web conectado a SQL Server mediante Node.js</p>
+            </div>
+            <button class="reload-btn" onclick="cargarDatos()">Recargar datos</button>
+        </header>
+
+        <!-- MÓDULO TAQUILLA -->
+        <section id="taquilla" class="module active-module">
+            <div class="card hero-card">
+                <div>
+                    <h2>🎟️ Módulo 1: Taquilla de Venta de Entradas</h2>
+                    <p>
+                        Esta pantalla invoca el procedimiento almacenado 
+                        <strong>P1_ComprarEntrada</strong>.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Registrar compra</h3>
+
+                    <label>Asistente</label>
+                    <select id="selectAsistente"></select>
+
+                    <label>Proyección disponible</label>
+                    <select id="selectProyeccion"></select>
+
+                    <label>Tarifa</label>
+                    <select id="selectTarifa"></select>
+
+                    <label>Método de pago</label>
+                    <select id="selectMetodoPago">
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Tarjeta">Tarjeta</option>
+                        <option value="Transferencia">Transferencia</option>
+                        <option value="QR">QR</option>
+                    </select>
+
+                    <button class="primary-btn" onclick="comprarEntrada()">
+                        Comprar entrada
+                    </button>
+                </div>
+
+                <div class="card result-card">
+                    <h3>Resultado de la compra</h3>
+                    <div id="resultadoCompra" class="result-box">
+                        Todavía no se registró ninguna compra.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MÓDULO AGENDA -->
+        <section id="agenda" class="module">
+            <div class="card hero-card">
+                <div>
+                    <h2>🗓️ Módulo 2: Panel de Control de Agenda</h2>
+                    <p>
+                        Esta pantalla intenta insertar una proyección. 
+                        El trigger <strong>TR1_ControlAgenda</strong> decide si se permite o se bloquea.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Programar nueva proyección</h3>
+
+                    <label>Película seleccionada</label>
+                    <select id="selectPeliculaAgenda"></select>
+
+                    <label>Sala</label>
+                    <select id="selectSalaAgenda"></select>
+
+                    <label>Fecha y hora</label>
+                    <input id="inputFechaHora" type="datetime-local" value="2026-09-09T22:00">
+
+                    <div class="checkbox-row">
+                        <input id="checkQA" type="checkbox">
+                        <label for="checkQA">Incluye Q&A al finalizar</label>
+                    </div>
+
+                    <button class="primary-btn" onclick="programarProyeccion()">
+                        Programar proyección
+                    </button>
+
+                    <button class="secondary-btn" onclick="cargarEjemploCruce()">
+                        Cargar ejemplo de cruce
+                    </button>
+                </div>
+
+                <div class="card result-card">
+                    <h3>Resultado de agenda</h3>
+                    <div id="resultadoAgenda" class="result-box">
+                        Todavía no se programó ninguna proyección.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MÓDULO DATOS -->
+        <section id="datos" class="module">
+            <div class="card hero-card">
+                <div>
+                    <h2>📊 Datos disponibles</h2>
+                    <p>
+                        Información cargada desde las vistas de SQL Server.
+                    </p>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <h3 id="statAsistentes">0</h3>
+                    <p>Asistentes</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="statProyecciones">0</h3>
+                    <p>Proyecciones con cupo</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="statPeliculas">0</h3>
+                    <p>Películas disponibles</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="statSalas">0</h3>
+                    <p>Salas</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Proyecciones disponibles</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Película</th>
+                                <th>Sala</th>
+                                <th>Fecha</th>
+                                <th>Cupos</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaProyecciones"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
