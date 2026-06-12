@@ -79,11 +79,12 @@ app.get("/api/proyecciones", async (req, res) => {
     const pool = await getConnection();
 
     const result = await pool.request().query(`
-      SELECT 
+      SELECT
         IdProyeccion,
         Pelicula,
         NombreSala,
         FechaHoraInicio,
+        CapacidadAsientos,
         AforoDisponibleActual
       FROM vw_ProyeccionesDisponibles
       ORDER BY FechaHoraInicio;
