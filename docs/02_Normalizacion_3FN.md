@@ -83,10 +83,10 @@ descartó por agregar complejidad sin eliminar ninguna redundancia real.
 | `Venta` | `IdVenta` | `IdAsistente, FechaVenta, TipoVenta, Total, EstadoVenta` → `IdVenta` | ✅ con observación. Ver **Caso especial 2** (`Total`). |
 | `Pago` | `IdPago` (UK: `IdVenta`) | `MetodoPago, MontoPagado, EstadoPago, FechaPago` → `IdVenta` | ✅ Relación 1:1 con `Venta` (un pago por venta). Ver **Caso especial 2**. |
 | `Factura` | `IdFactura` (UK: `IdVenta`, `NroFactura`) | `NroFactura, FechaEmision, MontoTotal` → `IdVenta` | ✅ Relación 1:1 con `Venta`. Ver **Caso especial 2**. |
-| `Entrada` | `IdEntrada` | `IdVenta, IdProyeccion, IdTarifa, FechaCompra, CodigoAcceso, Asistio` → `IdEntrada` | ✅ No almacena el monto (se obtiene vía FK a `Tarifa`/`Pago`), evitando redundancia. |
+| `Entrada` | `IdEntrada` | `IdVenta, IdProyeccion, IdTarifa, Asiento, FechaCompra, CodigoAcceso, Asistio` → `IdEntrada` | ✅ No almacena el monto (se obtiene vía FK a `Tarifa`/`Pago`), evitando redundancia. `Asiento` depende de la entrada emitida y se protege con unicidad por proyección. |
 | `EntradaEvento` | `IdEntradaEvento` | `IdVenta, IdEvento, IdTarifa, FechaCompra, CodigoAcceso, Asistio` → `IdEntradaEvento` | ✅ Igual razonamiento que `Entrada`. |
 | `Abono` | `IdAbono` (UK: `IdVenta`) | `IdTarifa, IdTipoAbono, FechaCompra, MontoTotal` → `IdAbono` | ✅ con observación. Ver **Caso especial 2** (`MontoTotal`). |
-| `AbonoProyeccion` | `(IdAbono, IdProyeccion)` | `CodigoAcceso, Asistio, FechaUso` → `(IdAbono, IdProyeccion)` | ✅ Tabla puente M:N — el código de acceso y el estado de uso son propios de **esa** proyección dentro de **ese** abono. |
+| `AbonoProyeccion` | `(IdAbono, IdProyeccion)` | `Asiento, CodigoAcceso, Asistio, FechaUso` → `(IdAbono, IdProyeccion)` | ✅ Tabla puente M:N — el código de acceso, asiento reservado y estado de uso son propios de **esa** proyección dentro de **ese** abono. |
 
 ---
 

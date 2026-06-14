@@ -3,6 +3,11 @@ GO
 USE FestCine;
 GO
 
+SET ANSI_NULLS ON;
+GO
+SET QUOTED_IDENTIFIER ON;
+GO
+
 
 CREATE TABLE Edicion
 (
@@ -290,6 +295,7 @@ CREATE TABLE Entrada
     IdVenta         INT             NOT NULL,
     IdProyeccion    INT             NOT NULL,
     IdTarifa        INT             NOT NULL,
+    Asiento         VARCHAR(10),
     FechaCompra     DATETIME        NOT NULL DEFAULT GETDATE(),
     CodigoAcceso    VARCHAR(20)     NOT NULL UNIQUE,
     Asistio         BIT             NOT NULL DEFAULT 0,
@@ -297,6 +303,10 @@ CREATE TABLE Entrada
     CONSTRAINT FK_Entrada_Proy      FOREIGN KEY (IdProyeccion)  REFERENCES Proyeccion,
     CONSTRAINT FK_Entrada_Tarifa    FOREIGN KEY (IdTarifa)      REFERENCES Tarifa
 );
+
+CREATE UNIQUE INDEX UX_Entrada_Proyeccion_Asiento
+ON Entrada (IdProyeccion, Asiento)
+WHERE Asiento IS NOT NULL;
 
 CREATE TABLE EntradaEvento
 (
@@ -329,6 +339,7 @@ CREATE TABLE AbonoProyeccion
 (
     IdAbono         INT             NOT NULL,
     IdProyeccion    INT             NOT NULL,
+    Asiento         VARCHAR(10),
     CodigoAcceso    VARCHAR(20)     NOT NULL UNIQUE,
     Asistio         BIT             NOT NULL DEFAULT 0,
     FechaUso        DATETIME,
@@ -336,6 +347,10 @@ CREATE TABLE AbonoProyeccion
     CONSTRAINT FK_AbonoProy_Abono   FOREIGN KEY (IdAbono)       REFERENCES Abono,
     CONSTRAINT FK_AbonoProy_Proy    FOREIGN KEY (IdProyeccion)  REFERENCES Proyeccion
 );
+
+CREATE UNIQUE INDEX UX_AbonoProyeccion_Proyeccion_Asiento
+ON AbonoProyeccion (IdProyeccion, Asiento)
+WHERE Asiento IS NOT NULL;
 
 CREATE TABLE Alojamiento
 (
