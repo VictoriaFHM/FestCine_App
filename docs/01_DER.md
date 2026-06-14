@@ -383,6 +383,7 @@ erDiagram
         int IdVenta FK
         int IdProyeccion FK
         int IdTarifa FK
+        varchar Asiento UK
         datetime FechaCompra
         varchar CodigoAcceso UK
         bit Asistio
@@ -410,6 +411,7 @@ erDiagram
     AbonoProyeccion {
         int IdAbono PK_FK
         int IdProyeccion PK_FK
+        varchar Asiento UK
         varchar CodigoAcceso UK
         bit Asistio
         datetime FechaUso
@@ -451,9 +453,14 @@ erDiagram
   tienen `IdVenta` con `UNIQUE`, por lo que la relación es **1:1**.
 - `Entrada` (proyección), `EntradaEvento` (evento paralelo) y `Abono`
   (acceso múltiple) son **especializaciones** de `Venta` según `TipoVenta`.
+- `Entrada.Asiento` identifica el lugar reservado dentro de la sala para una
+  proyección. Se controla con un índice único por `IdProyeccion + Asiento`,
+  de modo que un mismo asiento no pueda venderse dos veces en la misma función.
 - `AbonoProyeccion` resuelve la relación M:N "un abono da acceso a varias
   proyecciones, y una proyección puede estar incluida en varios abonos",
-  generando un `CodigoAcceso` único por proyección dentro del abono.
+  generando un `CodigoAcceso` único por proyección dentro del abono. También
+  puede guardar `Asiento`, con unicidad por `IdProyeccion + Asiento`, para
+  reservar un lugar concreto en cada función incluida.
 
 ---
 

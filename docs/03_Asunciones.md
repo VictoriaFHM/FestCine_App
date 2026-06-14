@@ -27,6 +27,8 @@ vs. capacidad de sala), y se puebla solo desde los datos de prueba (DML),
 no desde la UI. No existe un módulo de "marcar asistencia" porque no es un
 módulo obligatorio del enunciado.
 
+
+**Asientos numerados:** para la venta por minimapa, cada `Entrada` puede guardar un `Asiento` (por ejemplo `001`, `002`, etc.). No se crea una entidad física `Asiento` por sala; la aplicación genera los lugares desde `Sala.CapacidadAsientos` y SQL Server evita duplicados con unicidad por `IdProyeccion + Asiento`. Esta decisión mantiene el modelo simple y permite compras de varios boletos en una sola venta sin romper el control de aforo.
 ---
 
 ## 2. Política de reembolsos / cancelaciones

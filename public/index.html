@@ -31,15 +31,39 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
                 Agenda
             </button>
+            <button class="nav-btn" onclick="mostrarModulo('abonos', this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M7 15h.01"/><path d="M11 15h6"/></svg>
+                Abonos
+            </button>
             <button class="nav-btn" onclick="mostrarModulo('datos', this)">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
                 Datos
             </button>
+            <button class="nav-btn" onclick="mostrarModulo('informes', this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>
+                Informes
+            </button>
+            <button class="nav-btn" onclick="mostrarModulo('eventos', this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>
+                Eventos
+            </button>
+            <button class="nav-btn" onclick="mostrarModulo('jurado', this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10"/><path d="M17 4v8a5 5 0 0 1-10 0V4"/><path d="M5 9H3a2 2 0 0 1 0-4h2"/><path d="M19 9h2a2 2 0 0 0 0-4h-2"/></svg>
+                Jurado
+            </button>
+            <button class="nav-btn" onclick="mostrarModulo('peliculas', this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 7.5h4"/><path d="M3 12h18"/><path d="M3 16.5h4"/><path d="M17 3v18"/><path d="M17 7.5h4"/><path d="M17 16.5h4"/></svg>
+                Películas
+            </button>
+            <button class="nav-btn" onclick="mostrarModulo('logistica', this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"/><path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+                Logística
+            </button>
         </nav>
 
         <div class="status-box">
-            <span class="status-dot"></span>
-            <p>SQL Server conectado</p>
+            <span class="status-dot" id="statusDot"></span>
+            <p id="statusTexto">Verificando conexión…</p>
         </div>
     </header>
 
@@ -95,12 +119,55 @@
                     <h3>Registrar compra</h3>
 
                     <div class="field">
-                        <label>Asistente</label>
+                        <label>Boletos</label>
+                        <div class="ticket-quantity">
+                            <button type="button" class="quantity-btn" onclick="cambiarCantidadBoletos(-1)">−</button>
+                            <input type="number" id="inputCantidadBoletos" min="1" max="10" value="1">
+                            <button type="button" class="quantity-btn" onclick="cambiarCantidadBoletos(1)">+</button>
+                        </div>
+                        <p class="field-hint" id="estadoCantidadBoletos">Elige cuántos lugares quieres reservar.</p>
+                    </div>
+
+                    <div class="field">
+                        <label>Email del asistente</label>
+                        <div class="select-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                            <input type="email" id="inputAsistenteEmail" placeholder="correo@ejemplo.com">
+                        </div>
+                        <p class="field-hint" id="estadoAsistente">Escribe el correo para ver si ya está registrado.</p>
+                    </div>
+
+                    <div class="field">
+                        <label>Nombre completo</label>
                         <div class="select-wrap">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                            <select id="selectAsistente"></select>
+                            <input type="text" id="inputAsistenteNombre" placeholder="Nombre y apellido">
                         </div>
                     </div>
+
+                    <div class="field">
+                        <label>Teléfono (opcional)</label>
+                        <div class="select-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg>
+                            <input type="text" id="inputAsistenteTelefono" placeholder="Opcional">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Tipo de asistente</label>
+                        <div class="select-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M15 8h2"/><path d="M15 12h2"/><path d="M7 16h10"/></svg>
+                            <select id="selectTipoAsistente">
+                                <option value="PublicoGeneral">Público general</option>
+                                <option value="Acreditado">Acreditado</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="secondary-btn" id="btnLimpiarAsistente" type="button" onclick="reiniciarAsistente()" hidden>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                        Buscar otro asistente
+                    </button>
 
                     <div class="field">
                         <label>Proyección disponible</label>
@@ -131,6 +198,23 @@
                         </div>
                     </div>
 
+                    <div class="field">
+                        <label>Lugares seleccionados <span id="asientosContador">(0/1)</span></label>
+                        <div class="seat-map-panel">
+                            <div class="screen-shape">Pantalla</div>
+                            <div class="seat-map" id="mapaAsientos"></div>
+                            <div class="seat-legend">
+                                <span><i class="seat-swatch disponible"></i> Disponible</span>
+                                <span><i class="seat-swatch seleccionado"></i> Seleccionado</span>
+                                <span><i class="seat-swatch ocupado"></i> Ocupado</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="purchase-summary" id="resumenCompra">
+                        Selecciona una función, cantidad de boletos, tarifa y asientos.
+                    </div>
+
                     <button class="primary-btn" onclick="comprarEntrada()">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
                         Comprar entrada
@@ -159,6 +243,31 @@
                             Descargar boleto
                         </button>
                     </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Registrar asistencia (check-in)</h3>
+                <p class="field-hint">
+                    Ingresa el código de acceso del boleto o abono (ej. ENT-000008-010) para marcar
+                    <strong>Asistio = 1</strong>. Esto alimenta el porcentaje de ocupación en Informes.
+                </p>
+
+                <div class="field">
+                    <label>Código de acceso</label>
+                    <div class="select-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h1v1H9z"/><path d="M14 9h1v1h-1z"/><path d="M9 14h1v1H9z"/><path d="M14 14h1v1h-1z"/></svg>
+                        <input type="text" id="inputCodigoAsistencia" placeholder="ENT-000008-010">
+                    </div>
+                </div>
+
+                <button class="primary-btn" onclick="marcarAsistencia()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                    Registrar asistencia
+                </button>
+
+                <div id="resultadoAsistencia" class="result-box">
+                    Todavía no se registró ninguna asistencia.
                 </div>
             </div>
         </section>
@@ -203,8 +312,9 @@
                         <label>Fecha y hora</label>
                         <div class="input-wrap">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"></polyline></svg>
-                            <input id="inputFechaHora" type="datetime-local" value="2026-09-09T22:00">
+                            <input id="inputFechaHora" type="datetime-local">
                         </div>
+                        <p class="field-hint" id="hintRangoEdicion">Cargando rango de la edición actual…</p>
                     </div>
 
                     <div class="checkbox-row">
@@ -232,6 +342,115 @@
             </div>
         </section>
 
+        <!-- MÓDULO ABONOS -->
+        <section id="abonos" class="module">
+            <div class="card hero-card">
+                <div class="hero-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M7 15h.01"/><path d="M11 15h6"/></svg>
+                </div>
+                <div>
+                    <span class="eyebrow">Módulo 03 · Transacción con ROLLBACK</span>
+                    <h2>Venta de Abonos</h2>
+                    <p>
+                        Esta pantalla invoca el procedimiento <strong>T1_VenderAbono</strong>.
+                        Si activas "Forzar fallo de pasarela", el procedimiento revierte
+                        toda la operación con <strong>ROLLBACK</strong> y no queda ningún
+                        registro de venta, pago ni abono.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Registrar venta de abono</h3>
+
+                    <div class="field">
+                        <label>Asistente</label>
+                        <div class="select-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <select id="selectAsistenteAbono"></select>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Tipo de abono</label>
+                        <div class="select-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+                            <select id="selectTipoAbono"></select>
+                        </div>
+                        <p class="field-hint" id="infoTipoAbono"></p>
+                    </div>
+
+                    <div class="field">
+                        <label>Tarifa</label>
+                        <div class="select-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg>
+                            <select id="selectTarifaAbono"></select>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Método de pago</label>
+                        <div class="select-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                            <select id="selectMetodoPagoAbono">
+                                <option value="Efectivo">Efectivo</option>
+                                <option value="Tarjeta">Tarjeta</option>
+                                <option value="Transferencia">Transferencia</option>
+                                <option value="QR">QR</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Proyecciones incluidas <span id="abonoContador">(0/0)</span></label>
+                        <div class="abono-lista" id="abonoProyeccionesLista"></div>
+                    </div>
+
+                    <div class="field">
+                        <label>Asientos del abono <span id="abonoAsientosContador">(0/0)</span></label>
+                        <div class="abono-seat-selector" id="abonoAsientosPanel">
+                            Selecciona las proyecciones para elegir un asiento en cada sala.
+                        </div>
+                    </div>
+
+                    <div class="checkbox-row">
+                        <input id="checkForzarFallo" type="checkbox">
+                        <label for="checkForzarFallo">Forzar fallo de pasarela de pago (simula ROLLBACK)</label>
+                    </div>
+
+                    <button class="primary-btn" onclick="venderAbono()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                        Comprar abono
+                    </button>
+                </div>
+
+                <div class="card result-card">
+                    <h3>Resultado de la venta</h3>
+                    <div id="resultadoAbono" class="result-box">
+                        Todavía no se vendió ningún abono.
+                    </div>
+
+                    <div class="ticket-digital" id="abonoDigital" hidden>
+                        <div class="ticket-digital-strip"></div>
+                        <div class="ticket-digital-main">
+                            <div class="ticket-qr" id="abonoQR"></div>
+                            <div class="ticket-info">
+                                <span class="ticket-label">FestCine - Abono digital</span>
+                                <h4 id="abonoTitulo">Abono</h4>
+                                <p id="abonoDetalle">-</p>
+                                <p class="ticket-code" id="abonoCodigo">-</p>
+                            </div>
+                        </div>
+                        <button class="secondary-btn" id="btnDescargarAbono" onclick="descargarAbonoQR()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            Descargar abono
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- MÓDULO DATOS -->
         <section id="datos" class="module">
             <div class="card hero-card">
@@ -239,7 +458,7 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
                 </div>
                 <div>
-                    <span class="eyebrow">Módulo 03 · Vistas SQL Server</span>
+                    <span class="eyebrow">Módulo 04 · Vistas SQL Server</span>
                     <h2>Datos disponibles</h2>
                     <p>
                         Información cargada desde las vistas de SQL Server.
@@ -304,7 +523,6 @@
                     <span class="badge badge-alta">Alta</span>
                     <span class="badge badge-media">Media</span>
                     <span class="badge badge-baja">Baja</span>
-                    <span class="badge badge-lleno">Lleno</span>
                 </div>
 
                 <div class="table-container">
@@ -319,6 +537,443 @@
                             </tr>
                         </thead>
                         <tbody id="tablaProyecciones"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- MÓDULO INFORMES -->
+        <section id="informes" class="module">
+            <div class="card hero-card">
+                <div class="hero-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>
+                </div>
+                <div>
+                    <span class="eyebrow">Módulo 05 · Consultas DQL</span>
+                    <h2>Informes del Festival</h2>
+                    <p>
+                        Resultados de las consultas de <strong>03_DQL_Consultas.sql</strong>:
+                        ranking de películas, acta de premiación e informe financiero.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Ranking de películas por ocupación</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Película</th>
+                                <th>Proyecciones</th>
+                                <th>Capacidad programada</th>
+                                <th>Asistentes reales</th>
+                                <th>% Ocupación</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaRanking"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Acta de premiación</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Categoría</th>
+                                <th>Película</th>
+                                <th>Estado en el festival</th>
+                                <th>Premio</th>
+                                <th>Promedio votación</th>
+                                <th>Evaluaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaPremiacion"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Informe financiero · Resumen</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo de acceso</th>
+                                <th>Cantidad de ventas</th>
+                                <th>Total recaudado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaFinancieroResumen"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Informe financiero · Detalle por tarifa</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Detalle</th>
+                                <th>Tarifa</th>
+                                <th>Cantidad</th>
+                                <th>Total recaudado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaFinancieroDetalle"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- MÓDULO EVENTOS PARALELOS -->
+        <section id="eventos" class="module">
+            <div class="card hero-card">
+                <div class="hero-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>
+                </div>
+                <div>
+                    <span class="eyebrow">Módulo 06 · Vista SQL Server</span>
+                    <h2>Eventos Paralelos y Expositores</h2>
+                    <p>
+                        Resultados de la vista <strong>vw_EventosParalelos</strong>:
+                        masterclasses, talleres y cócteles de la edición vigente,
+                        con sus expositores y rol asignado.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Agenda de eventos paralelos</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Título</th>
+                                <th>Sala / Sede</th>
+                                <th>Fecha y hora</th>
+                                <th>Aforo (disp./máx.)</th>
+                                <th>Costo inscripción</th>
+                                <th>Expositores</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaEventos"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Inscribirse a un evento</h3>
+
+                    <div class="field">
+                        <label>Asistente</label>
+                        <div class="select-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <select id="selectAsistenteEvento"></select>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Evento</label>
+                        <div class="select-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+                            <select id="selectEventoInscripcion"></select>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Método de pago</label>
+                        <div class="select-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                            <select id="selectMetodoPagoEvento">
+                                <option value="Efectivo">Efectivo</option>
+                                <option value="Tarjeta">Tarjeta</option>
+                                <option value="Transferencia">Transferencia</option>
+                                <option value="QR">QR</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="primary-btn" onclick="inscribirseEvento()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                        Inscribirse
+                    </button>
+                </div>
+
+                <div class="card result-card">
+                    <h3>Resultado de la inscripción</h3>
+                    <div id="resultadoInscripcionEvento" class="result-box">
+                        Todavía no se registró ninguna inscripción.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MÓDULO JURADO Y PREMIACIÓN -->
+        <section id="jurado" class="module">
+            <div class="card hero-card">
+                <div class="hero-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10"/><path d="M17 4v8a5 5 0 0 1-10 0V4"/><path d="M5 9H3a2 2 0 0 1 0-4h2"/><path d="M19 9h2a2 2 0 0 0 0-4h-2"/></svg>
+                </div>
+                <div>
+                    <span class="eyebrow">Módulo 07 · Competición, Jurados y Premios</span>
+                    <h2>Jurado y Premiación</h2>
+                    <p>
+                        Composición de jurados por categoría, registro de evaluaciones
+                        (puntuación 1-10 de cada jurado a las películas en competencia)
+                        y los premios otorgados por edición.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Jurados por categoría</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Año</th>
+                                <th>Categoría</th>
+                                <th>Jurado</th>
+                                <th>Miembros</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaJurados"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Registrar evaluación</h3>
+
+                    <div class="field">
+                        <label>Miembro del jurado</label>
+                        <div class="select-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <select id="selectMiembroJurado"></select>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Película en competencia</label>
+                        <div class="select-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
+                            <select id="selectPeliculaCompetencia"></select>
+                        </div>
+                        <p class="field-hint" id="hintPeliculaCompetencia">Selecciona primero un miembro del jurado.</p>
+                    </div>
+
+                    <div class="field">
+                        <label>Puntuación (1.0 - 10.0)</label>
+                        <div class="input-wrap">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>
+                            <input id="inputPuntuacion" type="number" min="1" max="10" step="0.5" value="8">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Comentario</label>
+                        <div class="select-wrap">
+                            <textarea id="inputComentarioEvaluacion" rows="3" placeholder="Comentario del jurado sobre la película"></textarea>
+                        </div>
+                    </div>
+
+                    <button class="primary-btn" onclick="registrarEvaluacion()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                        Registrar evaluación
+                    </button>
+                </div>
+
+                <div class="card result-card">
+                    <h3>Resultado de la evaluación</h3>
+                    <div id="resultadoEvaluacion" class="result-box">
+                        Todavía no se registró ninguna evaluación.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Evaluaciones registradas</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Año</th>
+                                <th>Categoría</th>
+                                <th>Película</th>
+                                <th>Jurado</th>
+                                <th>Puntuación</th>
+                                <th>Comentario</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaEvaluaciones"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Premios otorgados</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Año</th>
+                                <th>Categoría</th>
+                                <th>Película ganadora</th>
+                                <th>Premio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaPremios"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="peliculas" class="module">
+            <div class="card hero-card">
+                <div class="hero-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 7.5h4"/><path d="M3 12h18"/><path d="M3 16.5h4"/><path d="M17 3v18"/><path d="M17 7.5h4"/><path d="M17 16.5h4"/></svg>
+                </div>
+                <div>
+                    <span class="eyebrow">Módulo 08 · Catálogo de Películas</span>
+                    <h2>Ficha de Película</h2>
+                    <p>
+                        Información completa de cada película: sinopsis, géneros,
+                        reparto y equipo técnico, y su historial de participación
+                        en las ediciones del festival.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="field">
+                    <label>Película</label>
+                    <div class="select-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 7.5h4"/><path d="M3 12h18"/><path d="M3 16.5h4"/><path d="M17 3v18"/><path d="M17 7.5h4"/><path d="M17 16.5h4"/></svg>
+                        <select id="selectFichaPelicula"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3 id="fichaTitulo">Selecciona una película</h3>
+                    <div id="fichaDetalle" class="ficha-detalle">
+                        Selecciona una película para ver su ficha completa.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Historial en el festival</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Año</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaHistorialPelicula"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Reparto y equipo técnico</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rol</th>
+                                <th>Nombre</th>
+                                <th>Nacionalidad</th>
+                                <th>Personaje</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaRepartoPelicula"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="logistica" class="module">
+            <div class="card hero-card">
+                <div class="hero-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"/><path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+                </div>
+                <div>
+                    <span class="eyebrow">Módulo 09 · Operaciones del Festival</span>
+                    <h2>Logística y Patrocinios</h2>
+                    <p>
+                        Alojamiento y traslados del personal invitado, y los
+                        patrocinios (económicos o en especie) recibidos en cada
+                        edición del festival.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Alojamiento del personal</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Año</th>
+                                <th>Persona</th>
+                                <th>Hotel</th>
+                                <th>Habitación</th>
+                                <th>Check-in</th>
+                                <th>Check-out</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaAlojamientos"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Traslados del personal</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Año</th>
+                                <th>Persona</th>
+                                <th>Tipo</th>
+                                <th>Origen</th>
+                                <th>Destino</th>
+                                <th>Fecha y hora</th>
+                                <th>Nro. vuelo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaTraslados"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Patrocinios</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Año</th>
+                                <th>Empresa</th>
+                                <th>Contacto</th>
+                                <th>Tipo de aportación</th>
+                                <th>Monto / Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaPatrocinios"></tbody>
                     </table>
                 </div>
             </div>
